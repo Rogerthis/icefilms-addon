@@ -3233,6 +3233,13 @@ def addDir(name, url, mode, iconimage, meta=False, imdb=False, delfromfav=False,
                  liz.setProperty('UnWatchedEpisodes', episodes_unwatched)
                  liz.setProperty('WatchedEpisodes', str(meta['playcount']))
              addWatched = True
+             try: 
+                 title = re.search('(.+?) \(',name).group(1)
+             except:
+                 title = name
+             if os.path.exists(xbmc.translatePath("special://home/addons/")+'plugin.video.1channel'):
+                 search1channel = 'XBMC.Container.Update(plugin://plugin.video.1channel/?mode=7000&section=%s&query=%s)' %('tv',title)
+                 contextMenuItems.append(('Search 1channel', search1channel))
              if tv_fanart == 'true' and tv_fanart_installed == 'true':
                  liz.setProperty('fanart_image', meta['backdrop_url'])
              contextMenuItems.append(('Show Information', 'XBMC.Action(Info)'))
@@ -3254,6 +3261,13 @@ def addDir(name, url, mode, iconimage, meta=False, imdb=False, delfromfav=False,
              contextMenuItems.append(('Refresh Info', 'XBMC.RunPlugin(%s?mode=997&name=%s&url=%s&imdbnum=%s&dirmode=%s&videoType=%s&season=%s&episode=%s)' % (sys.argv[0], sysname, sysurl, urllib.quote_plus(str(imdb)), dirmode, videoType, season, episode)))
          elif mode == 100: # movies
              addWatched = True
+             try: 
+                 title = re.search('(.+?) \(',name).group(1)
+             except:
+                 title = name
+             if os.path.exists(xbmc.translatePath("special://home/addons/")+'plugin.video.1channel'):
+                 search1channel = 'XBMC.Container.Update(plugin://plugin.video.1channel/?mode=7000&section=%s&query=%s)' %('movie',title)
+                 contextMenuItems.append(('Search 1channel', search1channel))
              if movie_fanart == 'true' and movie_fanart_installed == 'true':
                  liz.setProperty('fanart_image', meta['backdrop_url'])
              #if searchMode == False:
